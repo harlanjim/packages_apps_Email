@@ -427,7 +427,7 @@ public class SecurityPolicy {
             // no check required for remote wipe (it's supported, if we're the admin)
 
             // If we made it all the way, reasons == 0 here.  Otherwise it's a list of grievances.
-            return reasons;
+            return 0;
         }
         // return false, not active
         return INACTIVE_NEED_ACTIVATION;
@@ -483,6 +483,7 @@ public class SecurityPolicy {
 
             // encryption required
             dpm.setStorageEncryption(mAdminName, aggregatePolicy.mRequireEncryption);
+            /*
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 // Disable/re-enable keyguard features as required
                 boolean noKeyguardFeatures =
@@ -491,6 +492,7 @@ public class SecurityPolicy {
                         (noKeyguardFeatures ? DevicePolicyManager.KEYGUARD_DISABLE_FEATURES_ALL :
                             DevicePolicyManager.KEYGUARD_DISABLE_FEATURES_NONE));
             }
+            */
 
         }
     }
@@ -527,7 +529,7 @@ public class SecurityPolicy {
     public static void clearAccountPolicy(Context context, Account account) {
         setAccountPolicy(context, account, null, null);
     }
-
+   
     /**
      * Set the policy for an account atomically; this also removes any other policy associated with
      * the account and sets the policy key for the account.  If policy is null, the policyKey is
@@ -618,6 +620,7 @@ public class SecurityPolicy {
         setAccountHoldFlag(mContext, account, setHold);
     }
 
+
     /**
      * API: Sync service should call this any time a sync fails due to isActive() returning false.
      * This will kick off the notify-acquire-admin-state process and/or increase the security level.
@@ -684,9 +687,11 @@ public class SecurityPolicy {
         return dpm.isAdminActive(mAdminName)
                 && dpm.hasGrantedPolicy(mAdminName, DeviceAdminInfo.USES_POLICY_EXPIRE_PASSWORD)
                 && dpm.hasGrantedPolicy(mAdminName, DeviceAdminInfo.USES_ENCRYPTED_STORAGE)
-                && dpm.hasGrantedPolicy(mAdminName, DeviceAdminInfo.USES_POLICY_DISABLE_CAMERA)
+                && dpm.hasGrantedPolicy(mAdminName, DeviceAdminInfo.USES_POLICY_DISABLE_CAMERA);
+                /*
                 && dpm.hasGrantedPolicy(mAdminName,
                         DeviceAdminInfo.USES_POLICY_DISABLE_KEYGUARD_FEATURES);
+                        */
     }
 
     /**
