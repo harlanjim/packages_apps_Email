@@ -1,0 +1,13 @@
+AndroidManifest.xml
+Android.mk
+assets
+CleanSpec.mk
+emailcommon
+MODULE_LICENSE_APACHE2
+NOTICE
+proguard.flags
+readme.txt
+remove-exchange-support.sh
+res
+src
+tests
